@@ -4,9 +4,9 @@ datasource db {
 }
 
 generator client {
-  provider   = "prisma-client-js"
-  output     = "./node_modules/.prisma/client"
-  engineType = "library"
+  provider     = "prisma-client-js"
+  output       = "../aivf-app/node_modules/.prisma/client"
+  engineType   = "library"
 }
 
 model Account {
@@ -56,33 +56,33 @@ model User {
   accounts      Account[]
   sessions      Session[]
 
-  clinicId String?
-  clinic   Clinic? @relation(fields: [clinicId], references: [id])
+  clinicId      String?
+  clinic        Clinic?   @relation(fields: [clinicId], references: [id])
 
-  uploadedDocuments    Document[]            @relation("UploadedDocuments")
-  patientDocuments     Document[]            @relation("PatientDocuments")
-  passwordResetTokens  PasswordResetToken[]
-  appointments         Appointment[]
-  protocolId           String?
-  protocol             Protocol?             @relation(fields: [protocolId], references: [id])
-  protocolStartDate    DateTime?
+  uploadedDocuments Document[] @relation("UploadedDocuments")
+  patientDocuments  Document[] @relation("PatientDocuments")
+  passwordResetTokens PasswordResetToken[]
+  appointments Appointment[]
+  protocolId    String?
+  protocol      Protocol? @relation(fields: [protocolId], references: [id])
+  protocolStartDate DateTime?
   injectionCompletions InjectionCompletion[]
+  assignedProtocols PatientProtocol[]
 }
 
 model Clinic {
-  id           String        @id @default(cuid())
-  name         String
-  users        User[]
-  documents    Document[]
-  medications  Medication[]
-  protocols    Protocol[]
+  id        String     @id @default(cuid())
+  name      String
+  users     User[]
+  documents Document[]
+  medications Medication[]
+  protocols   Protocol[]
   appointments Appointment[]
 }
 
 model Document {
   id           String   @id @default(cuid())
   filename     String
-  fileUrl      String?
   createdAt    DateTime @default(now())
   content      String   @db.Text
   clinicId     String
@@ -95,22 +95,23 @@ model Document {
 }
 
 model Medication {
-  id          String  @id @default(cuid())
+  id          String    @id @default(cuid())
   name        String
   description String?
   clinicId    String
-  clinic      Clinic  @relation(fields: [clinicId], references: [id], onDelete: Cascade)
+  clinic      Clinic    @relation(fields: [clinicId], references: [id], onDelete: Cascade)
 }
 
 model Protocol {
-  id          String                @id @default(cuid())
+  id          String   @id @default(cuid())
   name        String
   description String?
   phases      Json
   clinicId    String
-  clinic      Clinic                @relation(fields: [clinicId], references: [id], onDelete: Cascade)
+  clinic      Clinic   @relation(fields: [clinicId], references: [id], onDelete: Cascade)
   patients    User[]
   completions InjectionCompletion[]
+  assignments PatientProtocol[]
 
   @@map("protocols")
 }
@@ -146,20 +147,31 @@ model Appointment {
 }
 
 model InjectionCompletion {
-  id         String   @id @default(cuid())
-  patientId  String
-  patient    User     @relation(fields: [patientId], references: [id], onDelete: Cascade)
-  protocolId String
-  protocol   Protocol @relation(fields: [protocolId], references: [id], onDelete: Cascade)
+  id                 String   @id @default(cuid())
+  patientId          String
+  patient            User     @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  protocolId         String
+  protocol           Protocol @relation(fields: [protocolId], references: [id], onDelete: Cascade)
+  
+  injectionDate      DateTime @db.Date
+  injectionTime      String   
+  markedCompletedAt  DateTime @default(now())
+  mood               String?
+  moodAnalysis       String?
 
-  // The specific date the injection was for
-  injectionDate DateTime @db.Date
-  // The scheduled time, e.g., "08:00"
-  injectionTime String
-
-  markedCompletedAt DateTime @default(now())
-
-  // A patient can only complete a specific injection once per day
   @@unique([patientId, protocolId, injectionDate, injectionTime])
   @@map("injection_completions")
+}
+
+model PatientProtocol {
+  id         String   @id @default(cuid())
+  patientId  String
+  protocolId String
+  startDate  DateTime
+  
+  patient    User     @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  protocol   Protocol @relation(fields: [protocolId], references: [id], onDelete: Cascade)
+
+  @@unique([patientId, protocolId, startDate])
+  @@map("patient_protocols")
 }

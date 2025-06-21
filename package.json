@@ -8,7 +8,7 @@
     "build": "prisma generate && NEXT_IGNORE_TYPE_ERRORS=true next build",
     "start": "next start",
     "lint": "next lint",
-    "postinstall": "prisma generate --schema=./prisma/schema.prisma",
+    "postinstall": "prisma generate",
     "seed": "ts-node prisma/seed.ts"
   },
   "dependencies": {

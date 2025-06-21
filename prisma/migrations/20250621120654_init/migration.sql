@@ -65,7 +65,6 @@ CREATE TABLE "Clinic" (
 CREATE TABLE "Document" (
     "id" TEXT NOT NULL,
     "filename" TEXT NOT NULL,
-    "fileUrl" TEXT,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "content" TEXT NOT NULL,
     "clinicId" TEXT NOT NULL,
@@ -129,6 +128,8 @@ CREATE TABLE "injection_completions" (
     "injectionDate" DATE NOT NULL,
     "injectionTime" TEXT NOT NULL,
     "markedCompletedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "mood" TEXT,
+    "moodAnalysis" TEXT,
 
     CONSTRAINT "injection_completions_pkey" PRIMARY KEY ("id")
 );

@@ -153,13 +153,10 @@ exports.Prisma.UserScalarFieldEnum = {
   name: 'name',
   email: 'email',
   emailVerified: 'emailVerified',
-  dateOfBirth: 'dateOfBirth',
   image: 'image',
   password: 'password',
   role: 'role',
-  clinicId: 'clinicId',
-  protocolId: 'protocolId',
-  protocolStartDate: 'protocolStartDate'
+  clinicId: 'clinicId'
 };
 
 exports.Prisma.ClinicScalarFieldEnum = {
@@ -170,13 +167,10 @@ exports.Prisma.ClinicScalarFieldEnum = {
 exports.Prisma.DocumentScalarFieldEnum = {
   id: 'id',
   filename: 'filename',
-  fileUrl: 'fileUrl',
   createdAt: 'createdAt',
   content: 'content',
   clinicId: 'clinicId',
-  uploadedById: 'uploadedById',
-  patientId: 'patientId',
-  updatedAt: 'updatedAt'
+  uploadedById: 'uploadedById'
 };
 
 exports.Prisma.MedicationScalarFieldEnum = {
@@ -190,44 +184,31 @@ exports.Prisma.ProtocolScalarFieldEnum = {
   id: 'id',
   name: 'name',
   description: 'description',
-  phases: 'phases',
-  clinicId: 'clinicId'
-};
-
-exports.Prisma.PasswordResetTokenScalarFieldEnum = {
-  id: 'id',
-  userId: 'userId',
-  token: 'token',
-  expiresAt: 'expiresAt'
-};
-
-exports.Prisma.AppointmentScalarFieldEnum = {
-  id: 'id',
+  clinicId: 'clinicId',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  date: 'date',
-  type: 'type',
-  notes: 'notes',
-  patientId: 'patientId',
-  clinicId: 'clinicId'
+  updatedAt: 'updatedAt'
 };
 
-exports.Prisma.InjectionCompletionScalarFieldEnum = {
+exports.Prisma.PhaseScalarFieldEnum = {
   id: 'id',
-  patientId: 'patientId',
+  name: 'name',
+  duration: 'duration',
   protocolId: 'protocolId',
-  injectionDate: 'injectionDate',
-  injectionTime: 'injectionTime',
-  markedCompletedAt: 'markedCompletedAt'
+  order: 'order'
+};
+
+exports.Prisma.InjectionScalarFieldEnum = {
+  id: 'id',
+  dayOfPhase: 'dayOfPhase',
+  dosage: 'dosage',
+  time: 'time',
+  phaseId: 'phaseId',
+  medicationId: 'medicationId'
 };
 
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
-};
-
-exports.Prisma.JsonNullValueInput = {
-  JsonNull: Prisma.JsonNull
 };
 
 exports.Prisma.QueryMode = {
@@ -238,12 +219,6 @@ exports.Prisma.QueryMode = {
 exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
-};
-
-exports.Prisma.JsonNullValueFilter = {
-  DbNull: Prisma.DbNull,
-  JsonNull: Prisma.JsonNull,
-  AnyNull: Prisma.AnyNull
 };
 exports.Role = exports.$Enums.Role = {
   CLINIC_ADMIN: 'CLINIC_ADMIN',
@@ -259,9 +234,8 @@ exports.Prisma.ModelName = {
   Document: 'Document',
   Medication: 'Medication',
   Protocol: 'Protocol',
-  PasswordResetToken: 'PasswordResetToken',
-  Appointment: 'Appointment',
-  InjectionCompletion: 'InjectionCompletion'
+  Phase: 'Phase',
+  Injection: 'Injection'
 };
 
 /**
