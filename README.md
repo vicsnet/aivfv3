@@ -121,6 +121,14 @@ AIVF addresses these pain points by providing:
 - **All your docs, organized:** Scan and store medical documents securely.
 
 ---
+## 🚀 Powered by [VibeOps](https://vibeops.ai)
+
+AIVF leverages [VibeOps](https://vibeops.ai) for scalable, reliable cloud operations.
+### 🌐 Live Demo
+
+Check out the live demo of AIVF here:  
+[https://18bd16bc-9dff-4e69-a26b-e6bf317513519b9ff4be-e73c-aci-vibe-ops.vercel.app](https://18bd16bc-9dff-4e69-a26b-e6bf317513519b9ff4be-e73c-aci-vibe-ops.vercel.app)
+
 
 ## 📦 Getting Started
 
