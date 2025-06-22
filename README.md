@@ -125,7 +125,7 @@ AIVF addresses these pain points by providing:
 ## 📦 Getting Started
 
 1. **Clone the repo:**  
-   `git clone https://github.com/yourusername/aivf.git`
+   `git clone https://github.com/vicsnet/aivfv3.git`
 2. **Install dependencies:**  
    `npm install`
 3. **Set up environment variables** (see `.env.example`)
